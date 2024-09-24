@@ -1,17 +1,42 @@
 public class Polynomial{
 	double [] coeffs;
+	int [] powers;
 	
 	public Polynomial(){
 		coeffs = new double[]{0};
+		powers = new int[]{0};
 	}
 	
-	public Polynomial(double [] c){
+	public Polynomial(double [] c, int [] p){
 		coeffs = c;
+		powers = p;
 	}
 	
 	public Polynomial add (Polynomial p){
-		double [] c = new double[Math.max((p.coeffs).length, coeffs.length)];
-		Polynomial total = new Polynomial(c);
+		double [] new_coeffs = new double[Math.max((p.coeffs).length, coeffs.length)];
+		//int [] p = new int[Math.max((p.).length, coeffs.length)];
+
+		//make new_powers
+		int i = 0;
+		int j = 0;
+		int pow_len = 0;
+		while (i < (p.coeffs).length && j < (coeffs.length)) {
+			if (p.coeffs[i] == coeffs[j]){
+				i++;
+				j++;
+				pow_len++;
+			}
+
+			if (p.coeffs[i] < coeffs[j]) {
+				i++;
+				pow_len++;
+			}
+
+			
+		}
+
+	
+		Polynomial total = new Polynomial(new_coeffs, new_powers);
 		int i = 0;
 		for (i = 0; i < Math.max((p.coeffs).length, coeffs.length); i++){
 			if (i >= p.coeffs.length) {
@@ -40,20 +65,24 @@ public class Polynomial{
 	}
 }
 
-/*Develop class Polynomial as follows:
-i. It has one field representing the coefficients of the polynomial using an array of
-double. A polynomial is assumed to have the form 
-ii. It has a no-argument constructor that sets the polynomial to zero (i.e. the
-corresponding array would be [0])
-iii. It has a constructor that takes an array of double as an argument and sets the
-coefficients accordingly
-iv. It has a method named add that takes one argument of type Polynomial and
-returns the polynomial resulting from adding the calling object and the argument
-v. It has a method named evaluate that takes one argument of type double
-representing a value of x and evaluates the polynomial accordingly. For example,
-if the polynomial is () and evaluate(-1) is invoked, the result should
-be 3.
-vi. It has a method named hasRoot that takes one argument of type double and
-determines whether this value is a root of the polynomial or not. Note that a root
-is a value of x for which the polynomial evaluates to zero.
+/* Modify Polynomial.java as follows:
+a. Replace the array representing the coefficients by two arrays: one representing the non-
+zero coefficients (of type double) and another one representing the corresponding
+exponents (of type int). For example, the polynomial 6 − 2𝑥 + 5𝑥 ! would be represented
+using the arrays [6, -2, 5] and [0, 1, 3]
+b. Update the existing methods accordingly
+c. Add a method named multiply that takes one argument of type Polynomial and returns
+the polynomial resulting from multiplying the calling object and the argument. The
+resulting polynomial should not contain redundant exponents.
+d. Add a constructor that takes one argument of type File and initializes the polynomial
+based on the contents of the file. You can assume that the file contains one line with no
+Fall 2024
+whitespaces representing a valid polynomial. For example: the line 5-3x2+7x8
+corresponds to the polynomial 5 − 3𝑥 " + 7𝑥 #
+Hint: you might want to use the following methods: split of the String class, parseInt of
+the Integer class, and parseDouble of the Double class
+e. Add a method named saveToFile that takes one argument of type String representing a
+file name and saves the polynomial in textual format in the corresponding file (similar to
+the format used in part d)
+
 */
