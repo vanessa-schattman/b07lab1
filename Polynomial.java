@@ -61,7 +61,7 @@ public class Polynomial{
 	public double evaluate (double x){
 		double total = 0;
 		for (int i = 0; i < coeffs.length; i++){
-			total += coeffs[i] * Math.pow(x, i);
+			total += coeffs[i] * Math.pow(x, powers[i]);
 		}
 		return total;
 	}
