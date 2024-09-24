@@ -24,18 +24,17 @@ public class Polynomial{
 			if (p.coeffs[i] == coeffs[j]){
 				i++;
 				j++;
-				pow_len++;
 			}
-
-			if (p.coeffs[i] < coeffs[j]) {
+			else if (p.coeffs[i] < coeffs[j]) {
 				i++;
-				pow_len++;
 			}
-
-			
+			else {
+				j++;
+			}
+			pow_len++;
 		}
 
-	
+		int [] new_powers = new int[pow_len];
 		Polynomial total = new Polynomial(new_coeffs, new_powers);
 		int i = 0;
 		for (i = 0; i < Math.max((p.coeffs).length, coeffs.length); i++){
