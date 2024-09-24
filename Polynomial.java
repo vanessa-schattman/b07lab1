@@ -13,13 +13,10 @@ public class Polynomial{
 	}
 	
 	public Polynomial add (Polynomial p){
-		double [] new_coeffs = new double[Math.max((p.coeffs).length, coeffs.length)];
-		//int [] p = new int[Math.max((p.).length, coeffs.length)];
-
 		//make new_powers
 		int i = 0;
 		int j = 0;
-		int pow_len = 0;
+		int new_len = 0;
 		while (i < (p.coeffs).length && j < (coeffs.length)) {
 			if (p.coeffs[i] == coeffs[j]){
 				i++;
@@ -31,23 +28,33 @@ public class Polynomial{
 			else {
 				j++;
 			}
-			pow_len++;
+			new_len++;
 		}
 
-		int [] new_powers = new int[pow_len];
-		Polynomial total = new Polynomial(new_coeffs, new_powers);
-		int i = 0;
-		for (i = 0; i < Math.max((p.coeffs).length, coeffs.length); i++){
-			if (i >= p.coeffs.length) {
-				total.coeffs[i] = coeffs[i];
+		double [] new_coeffs = new double[new_len];
+		int [] new_powers = new int[new_len];
+		i = 0;
+		j = 0;
+
+		for (int k = 0; k < new_len; k++){
+			if (p.powers[i] == powers[j]){
+				new_powers[k] = powers[j];
+				new_coeffs[k] = p.coeffs[i] + coeffs[j]
+				i++;
+				j++;
 			}
-			else if (i >= coeffs.length) {
-				total.coeffs[i] = p.coeffs[i];
+			else if (p.powers[i] < powers[j]){
+				new_powers[k] = p.powers[i]
+				new_coeffs[k] = p.coeffs[i]
+				i++;
 			}
-			else {
-				total.coeffs[i] = p.coeffs[i] + coeffs[i];
+			else{
+				new_powers[k] = powers[j]
+				new_coeffs[k] = coeffs[j]
+				j++;
 			}
 		}
+		Polynomial total = new Polynomial(new_coeffs, new_powers);
 		return total;
 	}
 	
