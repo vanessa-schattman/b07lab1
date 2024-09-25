@@ -11,6 +11,26 @@ public class Polynomial{
 		coeffs = c;
 		powers = p;
 	}
+
+	public Polynomial(File file){
+		Scanner scanner = new Scanner(file);
+		String str = scanner.nextLine();
+		String[] terms = str.split('+|-');
+		coeffs = new double[terms.length];
+		powers = new int[terms.length];
+
+		for (int i = 0; i < terms.length; i++){
+			String[] sep = terms[i].split('x');
+			coeffs[i] = Double.parseDouble(sep[0]);
+			
+			if (sep.length == 1){
+				powers[i] = 0;
+			}
+			else {
+				powers[i] = Integer.parseInt(sep[1]);
+			}
+		}
+	}
 	
 	public Polynomial add (Polynomial p){
 		//make new_powers
@@ -89,6 +109,7 @@ public class Polynomial{
 		}
 		return total;
 	}
+
 }
 
 /* Modify Polynomial.java as follows:
