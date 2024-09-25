@@ -69,6 +69,26 @@ public class Polynomial{
 	public boolean hasRoot (double val){
 		return evaluate(val) == 0;
 	}
+
+	public Polynomial single_mult(Polynomial poly, double coeff, int power){
+		double [] new_coeffs = poly.coeffs.clone();
+		int[] new_powers = poly.powers.clone();
+		Polynomial total = new Polynomial(new_coeffs, new_powers)
+		for (int i = 0; i < poly.coeffs.length; i++){
+			total.coeffs[i] *= coeff;
+			total.powers[i] += power;
+		}
+		return total;
+	}
+
+	public Polynomial multiply (Polynomial p) {
+		Polynomial total = new Polynomial();
+		for (int i = 0; i < coeffs.length(); i++){
+			Polynomial new_poly = single_mult(p, coeffs[i], powers[i]);
+			total.add(new_poly);
+		}
+		return total;
+	}
 }
 
 /* Modify Polynomial.java as follows:
@@ -82,7 +102,6 @@ the polynomial resulting from multiplying the calling object and the argument. T
 resulting polynomial should not contain redundant exponents.
 d. Add a constructor that takes one argument of type File and initializes the polynomial
 based on the contents of the file. You can assume that the file contains one line with no
-Fall 2024
 whitespaces representing a valid polynomial. For example: the line 5-3x2+7x8
 corresponds to the polynomial 5 − 3𝑥 " + 7𝑥 #
 Hint: you might want to use the following methods: split of the String class, parseInt of
