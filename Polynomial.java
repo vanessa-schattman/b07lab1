@@ -22,7 +22,7 @@ public class Polynomial{
 		for (int i = 0; i < terms.length; i++){
 			String[] sep = terms[i].split('x');
 			coeffs[i] = Double.parseDouble(sep[0]);
-			
+
 			if (sep.length == 1){
 				powers[i] = 0;
 			}
@@ -108,6 +108,21 @@ public class Polynomial{
 			total.add(new_poly);
 		}
 		return total;
+	}
+
+	public void saveToFile (String filename){
+		PrintStream ps = new PrintStream(filename); 
+		String s = '';
+		for (int i = 0; i < coeffs.length; i++){
+			s = s + coeffs[i]
+			if (powers[i] != 0){
+				s = s + "x" + powers[i]
+			}
+			if (i + 1 < coeffs.length && coeffs[i + 1] >= 0){
+				s = s + "+"
+			}
+		}
+		
 	}
 
 }
