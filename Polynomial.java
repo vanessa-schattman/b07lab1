@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 public class Polynomial{
 	double [] coeffs;
@@ -52,11 +53,11 @@ public class Polynomial{
 		int j = 0;
 		int new_len = 0;
 		while (i < (p.coeffs).length && j < (coeffs.length)) {
-			if (p.coeffs[i] == coeffs[j]){
+			if (p.powers[i] == powers[j]){
 				i++;
 				j++;
 			}
-			else if (p.coeffs[i] < coeffs[j]) {
+			else if (p.powers[i] < powers[j]) {
 				i++;
 			}
 			else {
@@ -64,29 +65,50 @@ public class Polynomial{
 			}
 			new_len++;
 		}
+		new_len += (p.powers.length - i) + (powers.length - j);
+		//System.out.println("length = " + new_len);
 
 		double [] new_coeffs = new double[new_len];
 		int [] new_powers = new int[new_len];
 		i = 0;
 		j = 0;
-
-		for (int k = 0; k < new_len; k++){
+		int k = 0;
+		for (k = 0; i < p.powers.length && j < powers.length; k++){
 			if (p.powers[i] == powers[j]){
 				new_powers[k] = powers[j];
 				new_coeffs[k] = p.coeffs[i] + coeffs[j];
+				//System.out.println("adding " + coeffs[j] + p.coeffs[i] + " to " + k);
 				i++;
 				j++;
 			}
 			else if (p.powers[i] < powers[j]){
 				new_powers[k] = p.powers[i];
 				new_coeffs[k] = p.coeffs[i];
+				//System.out.println("adding " + p.coeffs[i] + " to " + k);
 				i++;
 			}
 			else{
 				new_powers[k] = powers[j];
 				new_coeffs[k] = coeffs[j];
+				//System.out.println("adding " + coeffs[j] + " to " + k);
 				j++;
 			}
+		}
+		while (i < p.powers.length){
+			//System.out.println("overshot i!");
+			new_powers[k] = p.powers[i];
+			new_coeffs[k] = p.coeffs[i];
+			//System.out.println("adding " + p.coeffs[i] + " to " + k);
+			i++;
+			k++;
+		}
+		while (j < powers.length){
+			//System.out.println("overshot j!");
+			new_powers[k] = powers[j];
+			new_coeffs[k] = coeffs[j];
+			//System.out.println("adding " + coeffs[j] + " to " + k);
+			j++;
+			k++;
 		}
 		Polynomial total = new Polynomial(new_coeffs, new_powers);
 		return total;
@@ -146,8 +168,8 @@ public class Polynomial{
 	}
 
 	public void print(){
-		System.out.println(coeffs);
-		System.out.println(powers);
+		System.out.println(Arrays.toString(coeffs));
+		System.out.println(Arrays.toString(powers));
 	}
 
 }

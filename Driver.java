@@ -10,7 +10,9 @@ public class Driver {
 		int [] pow2 = {1, 4};
 		Polynomial p2 = new Polynomial(c2, pow2);
 		Polynomial s = p1.add(p2);
+		//s.print();
 		Polynomial t = p1.multiply(p2);
+		t.print();
 		
 		// for (int i = 0; i < s.coeffs.length; i++){
 			//System.out.println(s.coeffs[i]);
