@@ -1,3 +1,8 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 public class Polynomial{
 	double [] coeffs;
 	int [] powers;
@@ -12,9 +17,18 @@ public class Polynomial{
 		powers = p;
 	}
 
-	public Polynomial(File file){
-		Scanner scanner = new Scanner(file);
-		String str = scanner.nextLine();
+	public Polynomial(File file) throws FileNotFoundException{
+		String str;
+		try {
+			Scanner scanner = new Scanner(file);
+			str = scanner.nextLine();
+			scanner.close();
+		}
+		catch (FileNotFoundException ex){
+			System.out.println("this one's on you, Rawad :)");
+			str = "";
+		}
+
 		String[] terms = str.split("[+|-]");
 		coeffs = new double[terms.length];
 		powers = new int[terms.length];
@@ -103,15 +117,14 @@ public class Polynomial{
 
 	public Polynomial multiply (Polynomial p) {
 		Polynomial total = new Polynomial();
-		for (int i = 0; i < coeffs.length(); i++){
+		for (int i = 0; i < coeffs.length; i++){
 			Polynomial new_poly = single_mult(p, coeffs[i], powers[i]);
 			total.add(new_poly);
 		}
 		return total;
 	}
 
-	public void saveToFile (String filename){
-		PrintStream ps = new PrintStream(filename); 
+	public void saveToFile (String filename) throws FileNotFoundException{ 
 		String s = "";
 		for (int i = 0; i < coeffs.length; i++){
 			s = s + coeffs[i];
@@ -122,7 +135,14 @@ public class Polynomial{
 				s = s + "+";
 			}
 		}
-		
+		try {
+			PrintStream ps = new PrintStream(filename);
+			ps.println(s);
+		}
+		catch (FileNotFoundException ex){
+			System.out.println("this one's on you, Rawad :)");
+		}
+		return;
 	}
 
 }
