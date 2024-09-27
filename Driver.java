@@ -10,11 +10,13 @@ public class Driver {
 		int [] pow2 = {1, 4};
 		Polynomial p2 = new Polynomial(c2, pow2);
 		Polynomial s = p1.add(p2);
+		Polynomial t = p1.multiply(p2);
 		
 		// for (int i = 0; i < s.coeffs.length; i++){
 			//System.out.println(s.coeffs[i]);
 		//}
 		System.out.println("s(0.1) = " + s.evaluate(0.1));
+		System.out.println("t(1) = " + t.evaluate(1));
 		if(s.hasRoot(1)){
 			System.out.println("1 is a root of s");
 		}

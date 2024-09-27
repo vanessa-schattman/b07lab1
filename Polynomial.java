@@ -145,6 +145,11 @@ public class Polynomial{
 		return;
 	}
 
+	public void print(){
+		System.out.println(coeffs);
+		System.out.println(powers);
+	}
+
 }
 
 /* Modify Polynomial.java as follows:
