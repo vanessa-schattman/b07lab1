@@ -7,6 +7,11 @@ import java.util.Arrays;
 public class Polynomial{
 	double [] coeffs;
 	int [] powers;
+
+	public void print(){
+		System.out.println(Arrays.toString(coeffs));
+		System.out.println(Arrays.toString(powers));
+	}
 	
 	public Polynomial(){
 		coeffs = new double[]{0};
@@ -127,6 +132,8 @@ public class Polynomial{
 	}
 
 	public Polynomial single_mult(Polynomial poly, double coeff, int power){
+		//System.out.println("mult (" + coeff + ", " + power + ") with");
+		//poly.print();
 		double [] new_coeffs = poly.coeffs.clone();
 		int[] new_powers = poly.powers.clone();
 		Polynomial total = new Polynomial(new_coeffs, new_powers);
@@ -134,6 +141,7 @@ public class Polynomial{
 			total.coeffs[i] *= coeff;
 			total.powers[i] += power;
 		}
+		//total.print();
 		return total;
 	}
 
@@ -141,7 +149,10 @@ public class Polynomial{
 		Polynomial total = new Polynomial();
 		for (int i = 0; i < coeffs.length; i++){
 			Polynomial new_poly = single_mult(p, coeffs[i], powers[i]);
-			total.add(new_poly);
+			//new_poly.print();
+			total = total.add(new_poly);
+			//System.out.println("Running total:");
+			//total.print();
 		}
 		return total;
 	}
@@ -165,11 +176,6 @@ public class Polynomial{
 			System.out.println("this one's on you, Rawad :)");
 		}
 		return;
-	}
-
-	public void print(){
-		System.out.println(Arrays.toString(coeffs));
-		System.out.println(Arrays.toString(powers));
 	}
 
 }
